@@ -12,4 +12,4 @@ an android school app for UCAS.
 - [ ] 其他等等
 
 ## 截图
-![screenshot.jpeg]()
+![](screenshot.jpeg)
