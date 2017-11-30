@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,18 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-//        Button btn = findViewById(R.id.click_btn);
-//
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(LoginActivity.this, "点击了button", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                intent.putExtra("key", "value");
-//                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-//            }
-//        });
 
         unameEdit = findViewById(R.id.login_username_edit);
         passEdit = findViewById(R.id.login_pass_edit);

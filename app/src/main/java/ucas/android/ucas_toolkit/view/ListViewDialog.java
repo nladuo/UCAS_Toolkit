@@ -32,7 +32,8 @@ public class ListViewDialog extends Dialog {
 
     public ListViewDialog(Context context, List<String> datas, AdapterView.OnItemClickListener listViewListener,
                           View.OnClickListener confirmBtnLister) {
-        super(context);
+        super(context, android.R.style.Theme_Holo_Light_Dialog);
+
         mContext = context;
         this.mDatas = datas;
         this.listViewListener = listViewListener;

@@ -2,6 +2,7 @@ package ucas.android.ucas_toolkit.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -81,8 +82,14 @@ public class BusOrderActivity extends AppCompatActivity {
                 }, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(BusOrderActivity.this, "您选择了：" + avaliable_orders.
-                                get(last_item), Toast.LENGTH_LONG).show();
+                        if (last_item != -1) {
+                            Toast.makeText(BusOrderActivity.this, "您选择了：" + avaliable_orders.
+                                    get(last_item), Toast.LENGTH_LONG).show();
+                            last_item = -1; // 重新置为-1
+                        } else {
+                            Toast.makeText(BusOrderActivity.this, "您还没选择班车", Toast.LENGTH_LONG).show();
+                        }
+
                     }
                 });
                 dialog.setTitle("班车选择");
@@ -104,5 +111,14 @@ public class BusOrderActivity extends AppCompatActivity {
         adapter = new SimpleAdapter(this, listems,
                 R.layout.item_bus_time, new String[] { "time" },
                 new int[] {R.id.item_bus_time});
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

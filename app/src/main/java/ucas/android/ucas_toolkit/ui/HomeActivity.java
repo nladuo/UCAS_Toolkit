@@ -3,6 +3,7 @@ package ucas.android.ucas_toolkit.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 
 import ucas.android.ucas_toolkit.R;
@@ -29,9 +30,14 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeActivity.this, BusOrderActivity.class));
             }
         });
+    }
 
-//        setContentView();
-//        Toast.makeText(HomeActivity.this, "拿到了:" + getIntent().getStringExtra("key"), Toast.LENGTH_LONG).show();
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
