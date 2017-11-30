@@ -1,5 +1,8 @@
 package ucas.android.ucas_toolkit.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,11 +36,40 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        backPressed();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home) {
-            finish();
+            backPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * 提示是否退出
+     */
+    void backPressed() {
+        final AlertDialog.Builder alert  = new AlertDialog.Builder(this);
+        alert.setTitle("提示");
+        alert.setMessage("您确定要退出吗");
+        alert.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+        alert.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 }

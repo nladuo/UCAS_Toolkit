@@ -1,4 +1,4 @@
-package web;
+package ucas.android.ucas_toolkit.crawler;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 import com.google.gson.Gson;
 
-class BuyTicket extends WebMethod {
+public class BuyTicket extends WebMethod {
 	private int buyState = 0;
 	
     private String loginPage = "http://sep.ucas.ac.cn";
@@ -337,6 +337,8 @@ class BuyTicket extends WebMethod {
 			buyState = 2;
 			return false;
 		}
+
+		HttpURLConnection.setFollowRedirects(false);
 		conn = SendPost(onlinePay, postdata.toArray(new String[postdata.size()]));
 		
 		int responseCode;
@@ -349,6 +351,7 @@ class BuyTicket extends WebMethod {
 		paymentUrl = unquote(conn.getHeaderField("Location").split("&")[2].split("=")[1]);
 		
 		buyState = 4;
+		HttpURLConnection.setFollowRedirects(true);
 		return true;
 	}
 	

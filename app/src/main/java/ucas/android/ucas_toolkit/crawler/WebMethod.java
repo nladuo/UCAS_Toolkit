@@ -1,4 +1,4 @@
-package web;
+package ucas.android.ucas_toolkit.crawler;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -22,9 +22,8 @@ public class WebMethod {
 	protected static CookieManager cookieManager = new CookieManager();
 	protected static boolean authState = false;
 	
-	public WebMethod() {
-		super();
-		HttpURLConnection.setFollowRedirects(false);
+	public static void init() {
+		HttpURLConnection.setFollowRedirects(true);
 		CookieHandler.setDefault(cookieManager);
 	}
 
@@ -94,7 +93,7 @@ public class WebMethod {
 			else
 				params.append("&" + param);
 		}
-		
+		System.out.println(params.toString());
 		DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 		wr.writeBytes(params.toString());
 		wr.flush();
@@ -120,23 +119,34 @@ public class WebMethod {
 	 * @param username 用户名
 	 * @param password 密码
 	 * @return 成功登陆，返回true；否则返回false
-	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	public static boolean login(String username, String password) throws MalformedURLException, IOException {
+	public static boolean login(String username, String password) throws IOException {
 		String loginPage = "http://sep.ucas.ac.cn";
 		String loginUrl = loginPage + "/slogin";
+
+		System.out.println("url---->" + loginUrl);
+
 		String responseCode;
+
+//        HttpURLConnection conn = SendPost(loginUrl, "userName=" + username, "pwd=" + password, "sb=sb");
+//        String response = GetBuffer(conn);
+//        System.out.println("resp=====>" + response);
+
+
 		if(!(responseCode = SendPost(loginUrl, "userName=" + username, "pwd=" + password, "sb=sb").getResponseMessage()).equals("OK")) {
-			System.out.println("Login Page Response: " + responseCode);
+			System.out.println("Login Page Response----------->" + responseCode);
 			authState = false;
 			return false;
 		}
-		for(HttpCookie cookie : cookieManager.getCookieStore().getCookies())
-			if(cookie.getName().equals("sepuser")) {
-				authState = true;
-				return true;
-			}
+		for(HttpCookie cookie : cookieManager.getCookieStore().getCookies()){
+            System.out.println("cookie---->" + cookie.getName());
+            if(cookie.getName().equals("sepuser")) {
+                authState = true;
+                return true;
+            }
+        }
+
 		authState = false;
 		return false;
 	}
@@ -150,7 +160,7 @@ public class WebMethod {
 		label: 
 			while(true) {
 				if(!WebMethod.authState)
-					WebMethod.login("yuzhidong17@mails.ucas.ac.cn", "yzd4dhrhh");
+					WebMethod.login("", "");
 				switch(web.getBuyState()) {
 				case 0:web.ticketLogin();
 				case 1:web.fetchBusRouteData(0);System.out.println(web.getRouteList());
