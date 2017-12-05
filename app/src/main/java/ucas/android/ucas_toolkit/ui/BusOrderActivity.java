@@ -3,7 +3,6 @@ package ucas.android.ucas_toolkit.ui;
 import android.app.ProgressDialog;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import ucas.android.ucas_toolkit.R;
-import ucas.android.ucas_toolkit.crawler.WebMethod;
 import ucas.android.ucas_toolkit.model.ConstVal;
 import ucas.android.ucas_toolkit.view.ListViewDialog;
 
@@ -135,8 +133,6 @@ public class BusOrderActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         if (last_item != -1) {
-//                            Toast.makeText(BusOrderActivity.this, "您选择了：" + ConstVal.buyTicket.getRouteList().
-//                                    get(last_item), Toast.LENGTH_LONG).show();
                             PayAsyncTask task = new PayAsyncTask(last_item);
                             task.execute();
                             last_item = -1; // 重新置为-1
@@ -201,11 +197,8 @@ public class BusOrderActivity extends AppCompatActivity {
 
                 try {
                     String payUrl = URLDecoder.decode(ConstVal.buyTicket.getPaymentUrl(), "GBK");
-//                    Toast.makeText(BusOrderActivity.this, payUrl, Toast.LENGTH_SHORT).show();
-//
                     System.out.println("PaymentUrl-->" + payUrl);
-
-                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);  // 复制到剪切板
                     cm.setText(payUrl);
                     Toast.makeText(BusOrderActivity.this, "支付链接已复制到剪切板", Toast.LENGTH_SHORT).show();
                 } catch (UnsupportedEncodingException e) {

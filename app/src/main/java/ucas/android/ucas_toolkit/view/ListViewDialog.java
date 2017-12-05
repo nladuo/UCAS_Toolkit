@@ -79,22 +79,4 @@ public class ListViewDialog extends Dialog {
 
         mListView.setOnItemClickListener(listViewListener);
     }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (!hasFocus) {
-            return;
-        }
-//        setHeight();
-    }
-
-    private void setHeight() {
-        Window window = getWindow();
-        DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
-        WindowManager.LayoutParams attributes = window.getAttributes();
-        if (window.getDecorView().getHeight() >= (int) (displayMetrics.heightPixels * 0.6)) {
-            attributes.height = (int) (displayMetrics.heightPixels * 0.6);
-        }
-        window.setAttributes(attributes);
-    }
 }
