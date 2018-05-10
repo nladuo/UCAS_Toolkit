@@ -1,0 +1,15 @@
+group 'kalen.app.client'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'net.dongliu:requests:4.18.0'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
